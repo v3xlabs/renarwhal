@@ -1,13 +1,10 @@
 use alloy::{
     hex::FromHex,
     network::Ethereum,
-    primitives::{keccak256, Address, U256},
+    primitives::{Address, U256},
 };
 use alloy_provider::ProviderBuilder;
 use alloy_sol_types::sol;
-use std::str::FromStr;
-
-use crate::env::Environment;
 
 use super::ETHName;
 
