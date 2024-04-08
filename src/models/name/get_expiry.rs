@@ -18,7 +18,7 @@ sol! {
 }
 
 impl ETHName {
-    pub async fn get_price(&self, /* provider: &dyn Provider */ /* env: &Environment */) -> U256 {
+    pub async fn get_expiry(&self, /* provider: &dyn Provider */ /* env: &Environment */) -> U256 {
         let base_registrar_address =
             Address::from_hex("0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85")
                 .expect("Invalid ETHBaseRegistrar Address");
@@ -31,7 +31,7 @@ impl ETHName {
 
         let base_registrar = ETHBaseRegistrar::new(base_registrar_address, provider);
 
-        let hash = keccak256("lucemans").to_string();
+        let hash = keccak256(&self.name).to_string();
 
         let hash = U256::from_str(&hash).unwrap();
 
@@ -51,7 +51,7 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_get_price() {
+    async fn test_get_expiry() {
         // let provider = ProviderBuilder::new()
         //     .with_gas_estimation()
         //     .network::<Ethereum>()
@@ -61,7 +61,7 @@ mod tests {
         let estimate = ETHName {
             name: "lucemans".to_string(),
         }
-        .get_price()
+        .get_expiry()
         .await;
 
         println!("Expires: {:?}", estimate);
